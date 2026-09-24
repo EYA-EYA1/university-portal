@@ -17,5 +17,9 @@ def departments():
     all_departments = Department.query.all()
     return render_template("departments.html", departments=all_departments)
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
