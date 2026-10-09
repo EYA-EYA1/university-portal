@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from extensions import db
-from flask_login import LoginManager, login_user, login_required, current_user
+from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///portal.db"
@@ -43,6 +43,11 @@ def login():
             return "Email or password is incorrect", 401
 
     return render_template("login.html")
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/login")
 
 if __name__ == "__main__":
     app.run(debug=True)
